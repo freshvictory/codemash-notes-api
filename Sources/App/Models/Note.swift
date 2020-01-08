@@ -5,7 +5,7 @@
 //  Created by Justin Renjilian on 1/8/20.
 //
 
-import FluentSQLite
+import FluentPostgreSQL
 import Vapor
 
 final class Note: Codable {
@@ -23,7 +23,7 @@ final class Note: Codable {
     }
 }
 
-extension Note: SQLiteModel { }
+extension Note: PostgreSQLModel { }
 extension Note: Migration { }
 extension Note: Content { }
 extension Note: Parameter { }
