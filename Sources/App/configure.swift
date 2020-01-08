@@ -18,8 +18,14 @@ public func configure(_ config: inout Config, _ env: inout Environment, _ servic
     services.register(middlewares)
 
     // Configure a SQLite database
-    let postgresConfig = PostgreSQLDatabaseConfig(hostname: "localhost", username: "swift_server_notes")
-    let postgres = PostgreSQLDatabase(config: postgresConfig)
+    let postgreSQLConfig : PostgreSQLDatabaseConfig
+
+    if let url = Environment.get("DATABASE_URL") {
+        postgreSQLConfig = PostgreSQLDatabaseConfig(url: url)!
+    } else {
+        postgreSQLConfig = PostgreSQLDatabaseConfig(hostname: "localhost", username: "swift_server_notes")
+    }
+    let postgres = PostgreSQLDatabase(config: postgreSQLConfig)
 
     // Register the configured SQLite database to the database config.
     var databases = DatabasesConfig()
